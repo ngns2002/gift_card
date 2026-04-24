@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+    <style>
+        /* Sử dụng font chữ chuẩn Apple */
+        @font-face {
+            font-family: "SF Pro Display";
+            src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-medium-webfont.woff2");
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: "SF Pro Display";
+            src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-semibold-webfont.woff2");
+            font-weight: 600;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .admin-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .admin-panel input {
+            padding: 12px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .btn-shot {
+            background: #0071e3;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        /* KHU VỰC RENDER - CHUẨN KÍCH THƯỚC */
+        #render-target {
+            width: 375px;
+            /* Chiều rộng chuẩn iPhone */
+            background: white;
+            padding: 25px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Chỉnh lại độ lớn và khoảng cách dòng tiêu đề */
+        .amount-header {
+            font-family: "SF Pro Display";
+            font-size: 32px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        /* Chỉnh lại độ xuống dòng của mô tả giống 100% mẫu */
+        .description {
+             font-family: "Google Sans", sans-serif;
+            font-size: 16px;
+            color: #1d1d1f;
+            text-align: center;
+            margin-bottom: 35px;
+            width: 270px;
+            line-height: 1.25;
+            /* Độ xuống dòng chuẩn */
+            letter-spacing: -0.2px;
+            font-weight: 500;
+        }
+
+        /* Khung thẻ chứa quả táo */
+        .card-frame {
+            background: #eef4f9;
+            /* Màu nền xanh nhạt chuẩn Apple */
+            width: 325px;
+            border-radius: 14px;
+            padding: 35px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        /* Chỉnh kích thước quả táo */
+        .apple-logo {
+            width: 260px;
+            height: auto;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .pin-container {
+             font-family: "Google Sans", sans-serif;
+            font-size: 19px;
+            font-weight: 400;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+
+/* ===== FIX UNDERLINE PER CHAR ===== */
+.pin-value { color: #0071e3; font-family: "SF Pro Display", -apple-system, sans-serif; font-weight: 500; letter-spacing: -0.2px; position: relative; display: inline-block; line-height: 0.8; /* Kéo chữ sát xuống theo ý bạn */ cursor: pointer; -webkit-font-smoothing: antialiased; } /* Vẽ đường kẻ 2px bằng lớp giả */
+.pin-value {
+    display: inline-flex;
+}
+
+/* từng ký tự */
+.pin-value .char {
+    position: relative;
+    display: inline-block;
+}
+
+/* line từng chữ */
+.pin-value .char::after {
+    content: "";
+    position: absolute;
+    left: -0.5px;
+    bottom: -1.5px;
+    height: 1px;
+    width: 99.4%;
+    background-color: #0f5cbe;
+}
+
+/* chữ Q → chỉ vẽ 65% để tạo khoảng hở */
+.pin-value .char.q::after {
+    width: 65%;
+}
+
+        .pin-value {
+            position: relative;
+            display: inline-block;
+        }
+
+        .pin-value::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            background: #0071e3;
+
+            -webkit-mask-image: var(--pin-mask);
+            mask-image: var(--pin-mask);
+        }
+
+        .redeem-note {
+             font-family: "Google Sans", sans-serif;
+            font-size: 16px;
+            color: #1d1d1f;
+            margin-bottom: 5px;
+            font-weight: 600;
+            display: flex;
+            text-align: center;
+            width: 75%;
+            margin-top: 3px;
+        }
+
+        .tagline {
+            font-size: 19px;
+            font-weight: 550;
+            color: #1d1d1f;
+            margin-bottom: 1px;
+            letter-spacing: -0.3px;
+
+        }
+
+        /* Xử lý ảnh icons cho sắc nét */
+        .assets-img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 0px;
+            image-rendering: -webkit-optimize-contrast;
+            /* Làm nét ảnh */
+        }
+
+        .share-footer {
+            width: 100%;
+            background: #f5f5f7;
+            padding: 16px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 17px;
+            font-weight: 400;
+            color: #1d1d1f;
+            border-top: 0.5px solid #d2d2d7;
+        }
+
+        .share-icon {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-panel">
+        <input type="text" id="set-money" placeholder="Nhập số tiền (VD: 75)">
+        <input type="text" id="set-pin" placeholder="Nhập mã PIN">
+        <button class="btn-shot" id="capture-btn">Chụp & Sao chép Ảnh</button>
+        <div id="copy-status"
+            style="color: #34c759; font-size: 13px; font-weight: 600; text-align: center; margin-top: 5px; display: none;">
+            ✅ Đã tạo ảnh sắc nét (Retina 4x) và Copy!
+        </div>
+    </div>
+
+    <div id="render-target">
+        <div class="amount-header">$<span id="val-money">0</span> Apple Gift Card</div>
+        <div class="description">Apple Store, Apple Music, iPhone, iPad, AirPods, accessories, and more</div>
+
+        <div class="card-frame">
+            <img src="image/c2.png" class="apple-logo">
+            <div class="pin-container">PIN: <span class="pin-value" id="val-pin">XH..</span></div>
+            <div class="redeem-note">To redeem, simply click on the code above.</div>
+        </div>
+
+        <div class="tagline">One gift card. Everything Apple.</div>
+
+        <img src="image/c3.png" class="assets-img">
+
+        <!-- <div class="share-footer">
+            <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="#0071e3" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                <polyline points="16 6 12 2 8 6"></polyline>
+                <line x1="12" y1="2" x2="12" y2="15"></line>
+            </svg>
+            <span style="color: #1d1d1f;">Share eGift</span>
+        </div> -->
+
+        <svg width="0" height="0" style="position:absolute;">
+            <filter id="thin-cut" x="-10%" y="-10%" width="120%" height="120%">
+                <feMorphology operator="dilate" radius="1" in="SourceGraphic" result="thick-text" />
+                <feComposite operator="out" in="SourceGraphic" in2="thick-text" result="cut-line" />
+                <feMerge>
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+        </svg>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        const inputMoney = document.getElementById('set-money');
+        const inputPin = document.getElementById('set-pin');
+        const displayMoney = document.getElementById('val-money');
+        const displayPin = document.getElementById('val-pin');
+
+        inputMoney.addEventListener('input', () => {
+            displayMoney.innerText = inputMoney.value || "0";
+        });
+
+        inputPin.addEventListener('input', () => {
+            displayPin.innerText = (inputPin.value || "AWAITING").toUpperCase();
+        });
+
+        document.getElementById('capture-btn').addEventListener('click', async () => {
+    const target = document.getElementById('render-target');
+    const statusMsg = document.getElementById('copy-status');
+
+    const canvas = await html2canvas(target, {
+        scale: 4,
+        backgroundColor: "#ffffff",
+        useCORS: true,
+        logging: false,
+
+        onclone: (doc) => {
+            const pin = doc.getElementById('val-pin');
+            if (!pin) return;
+
+            // lấy text gốc
+            const text = pin.innerText;
+
+            // clear nội dung clone
+            pin.innerHTML = '';
+
+            [...text].forEach(char => {
+                const wrapper = doc.createElement('span');
+                wrapper.style.display = 'inline-flex';
+                wrapper.style.flexDirection = 'column';
+                wrapper.style.alignItems = 'center';
+                wrapper.style.marginRight = '1px';
+
+                const t = doc.createElement('span');
+                t.innerText = char;
+
+                const line = doc.createElement('div');
+                line.style.height = '1px';
+                line.style.background = '#0f5cbe';
+                line.style.marginTop = '1px';
+                line.style.width = char === 'Q' ? '65%' : '100%';
+
+                wrapper.appendChild(t);
+                wrapper.appendChild(line);
+
+                pin.appendChild(wrapper);
+            });
+
+            // QUAN TRỌNG: disable pseudo cũ
+            pin.style.setProperty('--pin-mask', 'none');
+        }
+    });
+
+    canvas.toBlob(async (blob) => {
+        try {
+            const item = new ClipboardItem({ [blob.type]: blob });
+            await navigator.clipboard.write([item]);
+
+            statusMsg.style.display = 'block';
+            setTimeout(() => statusMsg.style.display = 'none', 3000);
+
+        } catch (err) {
+            console.error(err);
+        }
+    }, 'image/png', 1.0);
+
+
+            function updatePinDisplay(text) {
+    const displayPin = document.getElementById('val-pin');
+    const upperText = (text || "AWAITING").toUpperCase();
+
+    displayPin.innerHTML = '';
+
+    [...upperText].forEach(char => {
+        const span = document.createElement('span');
+        span.innerText = char;
+        span.className = 'char';
+
+        if (char === 'Q') {
+            span.classList.add('q');
+        }
+
+        displayPin.appendChild(span);
+    });
+
+    // tắt mask cũ
+    displayPin.style.setProperty('--pin-mask', 'none');
+}
+
+
+// ss
+onclone: (doc) => {
+    const pin = doc.getElementById('val-pin');
+    if (!pin) return;
+
+    const text = pin.innerText;
+
+    // reset
+    pin.innerHTML = '';
+
+    // container
+    const wrapper = doc.createElement('span');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-block';
+
+    // text
+    const textNode = doc.createElement('span');
+    textNode.innerText = text;
+
+    // line DUY NHẤT
+    const line = doc.createElement('div');
+    line.style.position = 'absolute';
+    line.style.left = '0';
+    line.style.bottom = '-2px';
+    line.style.width = '100%';
+    line.style.height = '1px';
+    line.style.background = '#0f5cbe';
+
+    wrapper.appendChild(textNode);
+    wrapper.appendChild(line);
+    pin.appendChild(wrapper);
+}
+        });
+    </script>
+</body>
+
+</html>
