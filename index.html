@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Fake Apple Gift Card - 1:1</title>
-<link rel="icon" type="image/x-icon" href="image/favicon.png">
+    <link rel="icon" type="image/x-icon" href="image/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+        rel="stylesheet">
     <style>
         /* Sử dụng font chữ chuẩn Apple */
         @font-face {
@@ -89,7 +91,7 @@
 
         /* Chỉnh lại độ xuống dòng của mô tả giống 100% mẫu */
         .description {
-             font-family: "Google Sans", sans-serif;
+            font-family: "Google Sans", sans-serif;
             font-size: 16px;
             color: #1d1d1f;
             text-align: center;
@@ -123,40 +125,53 @@
         }
 
         .pin-container {
-             font-family: "Google Sans", sans-serif;
+            font-family: "Google Sans", sans-serif;
             font-size: 19px;
             font-weight: 400;
             color: #1d1d1f;
             margin-bottom: 4px;
         }
 
-/* ===== FIX UNDERLINE PER CHAR ===== */
-.pin-value { color: #0071e3; font-family: "SF Pro Display", -apple-system, sans-serif; font-weight: 500; letter-spacing: -0.2px; position: relative; display: inline-block; line-height: 0.8; /* Kéo chữ sát xuống theo ý bạn */ cursor: pointer; -webkit-font-smoothing: antialiased; } /* Vẽ đường kẻ 2px bằng lớp giả */
-.pin-value {
-    display: inline-flex;
-}
+        /* ===== FIX UNDERLINE PER CHAR ===== */
+        .pin-value {
+            color: #0071e3;
+            font-family: "SF Pro Display", -apple-system, sans-serif;
+            font-weight: 500;
+            letter-spacing: -0.2px;
+            position: relative;
+            display: inline-block;
+            line-height: 0.85;
+            /* Kéo chữ sát xuống theo ý bạn */
+            cursor: pointer;
+            -webkit-font-smoothing: antialiased;
+        }
 
-/* từng ký tự */
-.pin-value .char {
-    position: relative;
-    display: inline-block;
-}
+        /* Vẽ đường kẻ 2px bằng lớp giả */
+        .pin-value {
+            display: inline-flex;
+        }
 
-/* line từng chữ */
-.pin-value .char::after {
-    content: "";
-    position: absolute;
-    left: -0.5px;
-    bottom: -1.5px;
-    height: 1px;
-    width: 99.4%;
-    background-color: #0f5cbe;
-}
+        /* từng ký tự */
+        .pin-value .char {
+            position: relative;
+            display: inline-block;
+        }
 
-/* chữ Q → chỉ vẽ 65% để tạo khoảng hở */
-.pin-value .char.q::after {
-    width: 65%;
-}
+        /* line từng chữ */
+        .pin-value .char::after {
+            content: "";
+            position: absolute;
+            left: -0.5px;
+            bottom: -1.5px;
+            height: 1px;
+            width: 99.4%;
+            background-color: #0f5cbe;
+        }
+
+        /* chữ Q → chỉ vẽ 65% để tạo khoảng hở */
+        .pin-value .char.q::after {
+            width: 65%;
+        }
 
         .pin-value {
             position: relative;
@@ -167,7 +182,7 @@
             content: "";
             position: absolute;
             left: 0;
-            bottom: -2px;
+            bottom: -1.5px;
             width: 100%;
             height: 2px;
             background: #0071e3;
@@ -177,7 +192,7 @@
         }
 
         .redeem-note {
-             font-family: "Google Sans", sans-serif;
+            font-family: "Google Sans", sans-serif;
             font-size: 16px;
             color: #1d1d1f;
             margin-bottom: 5px;
@@ -205,6 +220,7 @@
             image-rendering: -webkit-optimize-contrast;
             /* Làm nét ảnh */
         }
+
         .assets-img-2 {
             width: 100%;
             height: auto;
@@ -231,7 +247,8 @@
             width: 20px;
             height: 20px;
         }
-        .menthor-gg{
+
+        .menthor-gg {
             position: fixed;
             width: 100%;
             left: 10px;
@@ -247,7 +264,7 @@
         <input type="text" id="set-money" placeholder="Nhập số tiền (VD: 75)">
         <input type="text" id="set-pin" placeholder="Nhập mã PIN">
         <button class="btn-shot" id="capture-btn">Chụp & Sao chép Ảnh</button>
-        <div>Tính năng chụp đang được bảo trì vui lòng không nhấn nút này khi chưa fix xong thanks u!<br> Tạm thời chụp ảnh màn hình nhé</div>
+        <!-- <div>Tính năng đang được bảo trì vui lòng không nhấn nút này khi chưa fix xong thanks u!</div> -->
         <div id="copy-status"
             style="color: #34c759; font-size: 13px; font-weight: 600; text-align: center; margin-top: 5px; display: none;">
             ✅ Đã tạo ảnh sắc nét (Retina 4x) và Copy!
@@ -269,7 +286,7 @@
         <img src="image/c3.png" class="assets-img">
         <!-- <img src="image/share.png" class="assets-img-2"> -->
 
-     
+
 
 
         <!-- <div class="share-footer">
@@ -293,7 +310,7 @@
         </svg>
     </div>
     <div class="menthor-gg">
-             <div class="menthor">Codeding by Ngô Gia Nhất Sơn - CHỈ SỬ DỤNG NỘI BỘ <3</div>
+        <div class="menthor">Codeding by Ngô Gia Nhất Sơn - Vui lòng không chia sẻ ngoài nội bộ</div>
     </div>
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -357,26 +374,26 @@
             }, 'image/png', 1.0); // Chất lượng tối đa
 
             function updatePinDisplay(text) {
-    const displayPin = document.getElementById('val-pin');
-    const upperText = (text || "AWAITING").toUpperCase();
+                const displayPin = document.getElementById('val-pin');
+                const upperText = (text || "AWAITING").toUpperCase();
 
-    displayPin.innerHTML = '';
+                displayPin.innerHTML = '';
 
-    [...upperText].forEach(char => {
-        const span = document.createElement('span');
-        span.innerText = char;
-        span.className = 'char';
+                [...upperText].forEach(char => {
+                    const span = document.createElement('span');
+                    span.innerText = char;
+                    span.className = 'char';
 
-        if (char === 'Q') {
-            span.classList.add('q');
-        }
+                    if (char === 'Q') {
+                        span.classList.add('q');
+                    }
 
-        displayPin.appendChild(span);
-    });
+                    displayPin.appendChild(span);
+                });
 
-    // tắt mask cũ
-    displayPin.style.setProperty('--pin-mask', 'none');
-}
+                // tắt mask cũ
+                displayPin.style.setProperty('--pin-mask', 'none');
+            }
         });
     </script>
 </body>
