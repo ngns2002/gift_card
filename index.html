@@ -2,28 +2,39 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Bộ Tạo Mã Kích Hoạt Profit Engine</title>
+  <title>Bộ Tạo Mã Kích Hoạt Hệ Thống Extension</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: 50px auto; border: 1px solid #ccc; border-radius: 8px; }
-    input { width: 95%; padding: 8px; margin-bottom: 15px; font-size: 14px; }
-    button { width: 100%; padding: 10px; font-size: 14px; background-color: #409eff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    .result { margin-top: 20px; padding: 10px; background: #e6f7ff; color: #1890ff; font-weight: bold; text-align: center; font-size: 16px; border: 1px solid #91d5ff; word-break: break-all; user-select: all; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: 50px auto; border: 1px solid #ccc; border-radius: 8px; background-color: #fafafa; }
+    input, select { width: 100%; padding: 10px; margin-bottom: 15px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { width: 100%; padding: 12px; font-size: 14px; background-color: #409eff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    button:hover { background-color: #66b1ff; }
+    .label-title { font-weight: bold; font-size: 13px; color: #606266; margin-bottom: 5px; display: block; }
+    .result { margin-top: 20px; padding: 12px; background: #e6f7ff; color: #1890ff; font-weight: bold; text-align: center; font-size: 16px; border: 1px solid #91d5ff; border-radius: 4px; word-break: break-all; user-select: all; }
   </style>
 </head>
 <body>
-  <h2>🔑 TẠO MÃ KÍCH HOẠT PROFIT ENGINE</h2>
-  <p>Nhập Extension ID nhận từ người dùng:</p>
+  <h2>🔑 BỘ TẠO MÃ KÍCH HOẠT ĐA EXTENSION</h2>
+  
+  <label class="label-title">1. CHỌN EXTENSION CẦN CẤP KEY:</label>
+  <select id="ext-type">
+    <option value="APPLE_SALT_2026">Extension 1: Apple Order & Auto Fill Assistant</option>
+    <option value="PROFIT_SALT_2026">Extension 2: Profit Calculator Engine</option>
+  </select>
+
+  <label class="label-title">2. NHẬP EXTENSION ID TỪ NGƯỜI DÙNG:</label>
   <input type="text" id="ext-id" placeholder="Ví dụ: jofgocgjedgphgja...">
-  <button onclick="getLicenseKey()">TẠO KEY NGAY</button>
+  
+  <button onclick="getLicenseKey()">TẠO KEY KÍCH HOẠT</button>
   <div id="output-key" class="result" style="display:none;"></div>
 
   <script>
     function getLicenseKey() {
         const id = document.getElementById('ext-id').value.trim();
-        if(!id) return alert('Vui lòng nhập ID!');
+        const salt = document.getElementById('ext-type').value;
+        if(!id) return alert('Vui lòng nhập ID Extension!');
         
         let hash = 0;
-        const inputStr = id + "PROFIT_SALT_2026";
+        const inputStr = id + salt;
         for (let i = 0; i < inputStr.length; i++) {
             const char = inputStr.charCodeAt(i);
             hash = ((hash << 5) - hash) + char;
