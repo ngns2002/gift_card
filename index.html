@@ -1,31 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
   <meta charset="utf-8">
-  <title>Bộ Tạo Mã Kích Hoạt Hệ Thống Extension</title>
+  <title>Hệ Thống Cấp Phát Key Kích Hoạt Extension</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: 50px auto; border: 1px solid #ccc; border-radius: 8px; background-color: #fafafa; }
-    input, select { width: 100%; padding: 10px; margin-bottom: 15px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-    button { width: 100%; padding: 12px; font-size: 14px; background-color: #409eff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    button:hover { background-color: #66b1ff; }
-    .label-title { font-weight: bold; font-size: 13px; color: #606266; margin-bottom: 5px; display: block; }
-    .result { margin-top: 20px; padding: 12px; background: #e6f7ff; color: #1890ff; font-weight: bold; text-align: center; font-size: 16px; border: 1px solid #91d5ff; border-radius: 4px; word-break: break-all; user-select: all; }
+    :root {
+      --primary-color: #4f46e5; /* Màu tím Indigo hiện đại */
+      --primary-hover: #4338ca;
+      --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --success-bg: #f0fdf4;
+      --success-text: #16a34a;
+      --success-border: #bbf7d0;
+    }
+
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+      padding: 20px; 
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-gradient);
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px; 
+      background: var(--card-bg); 
+      border-radius: 16px; 
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    h2 {
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .label-title { 
+      font-weight: 600; 
+      font-size: 12.5px; 
+      color: #475569; 
+      margin-bottom: 8px; 
+      display: block; 
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input, select { 
+      width: 100%; 
+      padding: 11px 14px; 
+      font-size: 14px; 
+      color: var(--text-main);
+      background-color: #f8fafc;
+      border: 1px solid var(--border-color); 
+      border-radius: 8px; 
+      box-sizing: border-box; 
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus {
+      background-color: #ffffff;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    input::placeholder {
+      color: #cbd5e1;
+    }
+
+    button { 
+      width: 100%; 
+      padding: 13px; 
+      font-size: 14px; 
+      background-color: var(--primary-color); 
+      color: white; 
+      border: none; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      font-weight: 600; 
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+    }
+
+    button:hover { 
+      background-color: var(--primary-hover); 
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px -1px rgba(79, 70, 229, 0.25);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .result-wrapper {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .result { 
+      padding: 14px; 
+      background: var(--success-bg); 
+      color: var(--success-text); 
+      font-weight: 700; 
+      text-align: center; 
+      font-size: 16px; 
+      border: 1px solid var(--success-border); 
+      border-radius: 8px; 
+      word-break: break-all; 
+      user-select: all; 
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 1px;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .result-hint {
+      font-size: 11px;
+      color: #22c55e;
+      text-align: center;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <h2>🔑 BỘ TẠO MÃ KÍCH HOẠT ĐA EXTENSION</h2>
-  
-  <label class="label-title">1. CHỌN EXTENSION CẦN CẤP KEY:</label>
-  <select id="ext-type">
-    <option value="APPLE_SALT_2026">Extension 1: Apple Order & Auto Fill Assistant</option>
-    <option value="PROFIT_SALT_2026">Extension 2: Profit Calculator Engine</option>
-  </select>
 
-  <label class="label-title">2. NHẬP EXTENSION ID TỪ NGƯỜI DÙNG:</label>
-  <input type="text" id="ext-id" placeholder="Ví dụ: jofgocgjedgphgja...">
-  
-  <button onclick="getLicenseKey()">TẠO KEY KÍCH HOẠT</button>
-  <div id="output-key" class="result" style="display:none;"></div>
+  <div class="container">
+    <h2>🔑 BỘ TẠO MÃ KÍCH HOẠT</h2>
+    <div class="subtitle">Hệ thống cấp phát bản quyền Đa Extension v2.0</div>
+    
+    <div class="form-group">
+      <label class="label-title">1. Chọn Extension cần cấp Key:</label>
+      <select id="ext-type">
+        <option value="APPLE_SALT_2026">Extension 1: Apple Order & Auto Fill Assistant</option>
+        <option value="PROFIT_SALT_2026">Extension 2: Profit Calculator Engine</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="label-title">2. Nhập Extension ID từ người dùng:</label>
+      <input type="text" id="ext-id" placeholder="Ví dụ: jofgocgjedgphgja...">
+    </div>
+    
+    <button onclick="getLicenseKey()">TẠO KEY KÍCH HOẠT</button>
+
+    <div id="result-area" class="result-wrapper" style="display:none;">
+      <label class="label-title" style="text-align: center;">Mã kích hoạt của bạn:</label>
+      <div id="output-key" class="result"></div>
+      <div class="result-hint">💡 Click đúp hoặc bôi đen toàn bộ để copy nhanh</div>
+    </div>
+  </div>
 
   <script>
     function getLicenseKey() {
@@ -43,8 +197,10 @@
         const generated = "KEY-" + Math.abs(hash).toString(16).toUpperCase();
         
         const out = document.getElementById('output-key');
+        const area = document.getElementById('result-area');
+        
         out.innerText = generated;
-        out.style.display = 'block';
+        area.style.display = 'block';
     }
   </script>
 </body>
