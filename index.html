@@ -5,16 +5,15 @@
   <title>Hệ Thống Cấp Phát Key Kích Hoạt Extension</title>
   <style>
     :root {
-      --primary-color: #4f46e5; /* Màu tím Indigo hiện đại */
-      --primary-hover: #4338ca;
+      --current-color: #ff9f43;
+      --current-hover: #ee5253;
       --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
       --card-bg: #ffffff;
       --text-main: #1e293b;
       --text-muted: #64748b;
       --border-color: #e2e8f0;
-      --success-bg: #f0fdf4;
-      --success-text: #16a34a;
-      --success-border: #bbf7d0;
+      --color-apple: #ff9f43;
+      --color-profit: #10ac84;
     }
 
     body { 
@@ -69,7 +68,34 @@
       letter-spacing: 0.5px;
     }
 
-    input, select { 
+    select {
+      width: 100%; 
+      padding: 12px 14px; 
+      font-size: 14px; 
+      font-weight: 600;
+      color: white;
+      background-color: var(--current-color);
+      border: 1px solid transparent; 
+      border-radius: 8px; 
+      box-sizing: border-box; 
+      outline: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    select option[value="APPLE_SALT_2026"] {
+      background-color: #ffffff !important;
+      color: var(--color-apple) !important;
+      font-weight: bold;
+    }
+    select option[value="PROFIT_SALT_2026"] {
+      background-color: #ffffff !important;
+      color: var(--color-profit) !important;
+      font-weight: bold;
+    }
+
+    input { 
       width: 100%; 
       padding: 11px 14px; 
       font-size: 14px; 
@@ -82,10 +108,10 @@
       transition: all 0.2s ease;
     }
 
-    input:focus, select:focus {
+    input:focus {
       background-color: #ffffff;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+      border-color: var(--current-color);
+      box-shadow: 0 0 0 3px rgba(241, 144, 34, 0.12);
     }
 
     input::placeholder {
@@ -96,24 +122,19 @@
       width: 100%; 
       padding: 13px; 
       font-size: 14px; 
-      background-color: var(--primary-color); 
+      background-color: var(--current-color); 
       color: white; 
       border: none; 
       border-radius: 8px; 
       cursor: pointer; 
       font-weight: 600; 
       transition: all 0.2s ease;
-      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
     button:hover { 
-      background-color: var(--primary-hover); 
+      filter: brightness(0.9);
       transform: translateY(-1px);
-      box-shadow: 0 6px 12px -1px rgba(79, 70, 229, 0.25);
-    }
-
-    button:active {
-      transform: translateY(0);
     }
 
     .result-wrapper {
@@ -124,18 +145,17 @@
 
     .result { 
       padding: 14px; 
-      background: var(--success-bg); 
-      color: var(--success-text); 
+      background: #f0fdf4; 
+      color: #16a34a; 
       font-weight: 700; 
       text-align: center; 
       font-size: 16px; 
-      border: 1px solid var(--success-border); 
+      border: 1px solid #bbf7d0; 
       border-radius: 8px; 
       word-break: break-all; 
       user-select: all; 
       font-family: 'Courier New', Courier, monospace;
       letter-spacing: 1px;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
       animation: fadeIn 0.3s ease;
     }
 
@@ -157,13 +177,13 @@
 
   <div class="container">
     <h2>🔑 BỘ TẠO MÃ KÍCH HOẠT</h2>
-    <div class="subtitle">Hệ thống cấp phát bản quyền Đa Extension v2.0</div>
+    <div class="subtitle">Hệ thống cấp phát bản quyền Đa Extension v2.5</div>
     
     <div class="form-group">
       <label class="label-title">1. Chọn Extension cần cấp Key:</label>
-      <select id="ext-type">
-        <option value="APPLE_SALT_2026">Extension 1: Apple Order & Auto Fill Assistant</option>
-        <option value="PROFIT_SALT_2026">Extension 2: Profit Calculator Engine</option>
+      <select id="ext-type" onchange="updateThemeColor()">
+        <option value="APPLE_SALT_2026">🍊 Extension 1: Apple Order & Auto Fill</option>
+        <option value="PROFIT_SALT_2026">🟩 Extension 2: Profit Calculator Engine</option>
       </select>
     </div>
 
@@ -182,6 +202,18 @@
   </div>
 
   <script>
+    function updateThemeColor() {
+        const select = document.getElementById('ext-type');
+        const selectedValue = select.value;
+        const root = document.documentElement;
+
+        if (selectedValue === "APPLE_SALT_2026") {
+            root.style.setProperty('--current-color', 'var(--color-apple)');
+        } else {
+            root.style.setProperty('--current-color', 'var(--color-profit)');
+        }
+    }
+
     function getLicenseKey() {
         const id = document.getElementById('ext-id').value.trim();
         const salt = document.getElementById('ext-type').value;
@@ -202,6 +234,8 @@
         out.innerText = generated;
         area.style.display = 'block';
     }
+
+    updateThemeColor();
   </script>
 </body>
 </html>
