@@ -6,7 +6,6 @@
   <style>
     :root {
       --current-color: #ff9f43;
-      --current-hover: #ee5253;
       --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
       --card-bg: #ffffff;
       --text-main: #1e293b;
@@ -14,18 +13,19 @@
       --border-color: #e2e8f0;
       --color-apple: #ff9f43;
       --color-profit: #10ac84;
+      --color-capture: #6366f1;
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body { 
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
       padding: 20px; 
-      margin: 0;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--bg-gradient);
-      box-sizing: border-box;
     }
 
     .container {
@@ -77,23 +77,20 @@
       background-color: var(--current-color);
       border: 1px solid transparent; 
       border-radius: 8px; 
-      box-sizing: border-box; 
       outline: none;
       cursor: pointer;
       transition: all 0.25s ease;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
-    select option[value="APPLE_SALT_2026"] {
+    select option {
       background-color: #ffffff !important;
-      color: var(--color-apple) !important;
       font-weight: bold;
     }
-    select option[value="PROFIT_SALT_2026"] {
-      background-color: #ffffff !important;
-      color: var(--color-profit) !important;
-      font-weight: bold;
-    }
+    
+    select option[value="APPLE_SALT_2026"] { color: var(--color-apple) !important; }
+    select option[value="PROFIT_SALT_2026"] { color: var(--color-profit) !important; }
+    select option[value="CAPTURE_SALT_2026"] { color: var(--color-capture) !important; }
 
     input { 
       width: 100%; 
@@ -103,7 +100,6 @@
       background-color: #f8fafc;
       border: 1px solid var(--border-color); 
       border-radius: 8px; 
-      box-sizing: border-box; 
       outline: none;
       transition: all 0.2s ease;
     }
@@ -111,7 +107,7 @@
     input:focus {
       background-color: #ffffff;
       border-color: var(--current-color);
-      box-shadow: 0 0 0 3px rgba(241, 144, 34, 0.12);
+      box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.08);
     }
 
     input::placeholder {
@@ -177,13 +173,14 @@
 
   <div class="container">
     <h2>🔑 BỘ TẠO MÃ KÍCH HOẠT</h2>
-    <div class="subtitle">Hệ thống cấp phát bản quyền Đa Extension v2.5</div>
+    <div class="subtitle">Hệ thống cấp phát bản quyền Đa Extension v3.0</div>
     
     <div class="form-group">
       <label class="label-title">1. Chọn Extension cần cấp Key:</label>
       <select id="ext-type" onchange="updateThemeColor()">
         <option value="APPLE_SALT_2026">🍊 Extension 1: Apple Order & Auto Fill</option>
         <option value="PROFIT_SALT_2026">🟩 Extension 2: Profit Calculator Engine</option>
+        <option value="CAPTURE_SALT_2026">🟪 Extension 3: Payment Form Auto Capture</option>
       </select>
     </div>
 
@@ -209,8 +206,10 @@
 
         if (selectedValue === "APPLE_SALT_2026") {
             root.style.setProperty('--current-color', 'var(--color-apple)');
-        } else {
+        } else if (selectedValue === "PROFIT_SALT_2026") {
             root.style.setProperty('--current-color', 'var(--color-profit)');
+        } else {
+            root.style.setProperty('--current-color', 'var(--color-capture)');
         }
     }
 
